@@ -5,6 +5,9 @@ html {
 }
 /* inherit border-box on all elements in the universe and before and after
  */
+
+/* makes the box model easier by including all of them in the width
+ */
 *, 
 *:before, 
 *:after {
@@ -32,12 +35,76 @@ div img {
 
 /* grid system -- mobile first! */
 
+.row::after {
+    content:"";
+    display: table;
+    clear:both;
+} 
+/* on mobile, all col- elements occupy 1 full row, so 92%*/
+/* these properties cascade upwards with regards to screen size */
+[class*='col-'] {
+	margin-right: 4%;
+	margin-left: 4%;
+	width: 92%;
+	min-height: 1px;
+}
 
-/* Mobile Landscape Screen Sizes */
+
+.col-1, .col-1-4 {
+	background-color: #ffc;
+}
+.col-2 {
+	background-color: #fcf;
+}
+.col-3 {
+	background-color: #cff;
+}
+.col-4 {
+	background-color: #ccf;
+}
+
+
+article {
+	float: left;
+}
+
+
+/* Mobile Landscape or Tablet Screen Sizes */
 @media only screen and (min-width: 480px)  {
+	[class*='col-'] {
+		margin-right: 0;
+	}
 
+	/* all col-1 are now 2 cells wide */
+	.col-1 {
+		width: 44%;
+	}
+
+	/* col-1-4 aka col 1 cell wide becomes 4 cells wide */
+	.col-1-4 {
+		width: 92%;
+	}
+	
 }
 /* Desktop screen Sizes */
 @media only screen and (min-width: 768px) {
+	
 
+	/* at desktop screen size, these classes are just one cell wide */
+	.col-1, .col-1-4 {
+		width: 20%;
+	}
+
+	.col-2 {
+		width: 44%;
+	}
+
+	.col-3 {
+		width: 68%;
+		background: #cff;
+	}
+
+	/* can be deleted, since it inherits the "mobile" 92% width */
+	.col-4 {
+	}
 }
